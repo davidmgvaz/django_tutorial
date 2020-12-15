@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}Projetos{% endblock %}
+
+{% block conteudo %}
+<h1>Projetos</h1>
+
+<div class="row">
+
+    {% for projeto in projeto_list %}
+    <div class="card col" style="width: 18rem;">
+        <img src="{{ projeto.imagem.url }}" class="card-img-top" alt="">
+        <div class="card-body">
+            <h5 class="card-title">{{ projeto.titulo }}</h5>
+            <p class="card-text">{{ projeto.descricao }}</p>
+            <a href="{{ projeto.get_absolute_url }}" class="btn btn-primary">Detalhe</a>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
