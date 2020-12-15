@@ -11,4 +11,4 @@ class ComentarioForm(forms.Form):
 class ComentarioModelForm(forms.ModelForm):
     class Meta:
         model = Comentario
-        exclude = ['projeto']
+        exclude = ['projeto', 'user', 'nome']

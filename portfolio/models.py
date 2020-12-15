@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+
+user_model = get_user_model()
 
 
 class Projeto(models.Model):
@@ -19,5 +22,13 @@ class Comentario(models.Model):
     nome = models.CharField(max_length=50)
     comentario = models.TextField()
 
+    user = models.ForeignKey(user_model, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return f'{self.projeto}: {self.nome}'
+
+    def save(self, *args, **kwargs):
+        if self.user is not None:
+            self.nome = self.user.username
+
+        super().save(*args, **kwargs)

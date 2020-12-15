@@ -25,6 +25,11 @@ class ProjetoList(ListView):
 #    template_name = ''
 #    context_object_name = 'projetos'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['qualquer'] = 'Python'
+        return context
+
 
 def projeto_detail(request, pk):
     projeto = get_object_or_404(Projeto, pk=pk)
@@ -49,7 +54,8 @@ def comentar(request, pk):
         if form.is_valid():
             comentario = Comentario(
                 projeto=projeto,
-                nome=form.cleaned_data['nome'],
+                user=request.user,
+#                nome=form.cleaned_data['nome'],
                 comentario=form.cleaned_data['comentario']
             )
             comentario.save()
